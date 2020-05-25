@@ -1,9 +1,9 @@
-#Goal
+Goal
 ---
 Develop a temporary email app with similar functionality to 10minutemail.com. The app should follow
 good iOS development practices and conform to Apple UI/UX standards. 
 
-#TODO
+TODO
 ---
 - [ ] create temporary email address
 - [ ] access emails
