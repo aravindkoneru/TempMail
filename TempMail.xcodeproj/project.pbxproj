@@ -1,0 +1,593 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 50;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		D4518758247C33D1001E19FB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4518757247C33D1001E19FB /* AppDelegate.swift */; };
+		D451875A247C33D1001E19FB /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4518759247C33D1001E19FB /* SceneDelegate.swift */; };
+		D451875C247C33D1001E19FB /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D451875B247C33D1001E19FB /* ContentView.swift */; };
+		D451875E247C33D4001E19FB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D451875D247C33D4001E19FB /* Assets.xcassets */; };
+		D4518761247C33D4001E19FB /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D4518760247C33D4001E19FB /* Preview Assets.xcassets */; };
+		D4518764247C33D4001E19FB /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D4518762247C33D4001E19FB /* LaunchScreen.storyboard */; };
+		D451876F247C33D4001E19FB /* TempMailTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D451876E247C33D4001E19FB /* TempMailTests.swift */; };
+		D451877A247C33D4001E19FB /* TempMailUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4518779247C33D4001E19FB /* TempMailUITests.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		D451876B247C33D4001E19FB /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D451874C247C33D1001E19FB /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = D4518753247C33D1001E19FB;
+			remoteInfo = TempMail;
+		};
+		D4518776247C33D4001E19FB /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D451874C247C33D1001E19FB /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = D4518753247C33D1001E19FB;
+			remoteInfo = TempMail;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		D4518754247C33D1001E19FB /* TempMail.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TempMail.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		D4518757247C33D1001E19FB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		D4518759247C33D1001E19FB /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
+		D451875B247C33D1001E19FB /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		D451875D247C33D4001E19FB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		D4518760247C33D4001E19FB /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		D4518763247C33D4001E19FB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		D4518765247C33D4001E19FB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D451876A247C33D4001E19FB /* TempMailTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TempMailTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		D451876E247C33D4001E19FB /* TempMailTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TempMailTests.swift; sourceTree = "<group>"; };
+		D4518770247C33D4001E19FB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D4518775247C33D4001E19FB /* TempMailUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TempMailUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		D4518779247C33D4001E19FB /* TempMailUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TempMailUITests.swift; sourceTree = "<group>"; };
+		D451877B247C33D4001E19FB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		D4518751247C33D1001E19FB /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D4518767247C33D4001E19FB /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D4518772247C33D4001E19FB /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		D451874B247C33D1001E19FB = {
+			isa = PBXGroup;
+			children = (
+				D4518756247C33D1001E19FB /* TempMail */,
+				D451876D247C33D4001E19FB /* TempMailTests */,
+				D4518778247C33D4001E19FB /* TempMailUITests */,
+				D4518755247C33D1001E19FB /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		D4518755247C33D1001E19FB /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				D4518754247C33D1001E19FB /* TempMail.app */,
+				D451876A247C33D4001E19FB /* TempMailTests.xctest */,
+				D4518775247C33D4001E19FB /* TempMailUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		D4518756247C33D1001E19FB /* TempMail */ = {
+			isa = PBXGroup;
+			children = (
+				D4518757247C33D1001E19FB /* AppDelegate.swift */,
+				D4518759247C33D1001E19FB /* SceneDelegate.swift */,
+				D451875B247C33D1001E19FB /* ContentView.swift */,
+				D451875D247C33D4001E19FB /* Assets.xcassets */,
+				D4518762247C33D4001E19FB /* LaunchScreen.storyboard */,
+				D4518765247C33D4001E19FB /* Info.plist */,
+				D451875F247C33D4001E19FB /* Preview Content */,
+			);
+			path = TempMail;
+			sourceTree = "<group>";
+		};
+		D451875F247C33D4001E19FB /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				D4518760247C33D4001E19FB /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		D451876D247C33D4001E19FB /* TempMailTests */ = {
+			isa = PBXGroup;
+			children = (
+				D451876E247C33D4001E19FB /* TempMailTests.swift */,
+				D4518770247C33D4001E19FB /* Info.plist */,
+			);
+			path = TempMailTests;
+			sourceTree = "<group>";
+		};
+		D4518778247C33D4001E19FB /* TempMailUITests */ = {
+			isa = PBXGroup;
+			children = (
+				D4518779247C33D4001E19FB /* TempMailUITests.swift */,
+				D451877B247C33D4001E19FB /* Info.plist */,
+			);
+			path = TempMailUITests;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		D4518753247C33D1001E19FB /* TempMail */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D451877E247C33D4001E19FB /* Build configuration list for PBXNativeTarget "TempMail" */;
+			buildPhases = (
+				D4518750247C33D1001E19FB /* Sources */,
+				D4518751247C33D1001E19FB /* Frameworks */,
+				D4518752247C33D1001E19FB /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = TempMail;
+			productName = TempMail;
+			productReference = D4518754247C33D1001E19FB /* TempMail.app */;
+			productType = "com.apple.product-type.application";
+		};
+		D4518769247C33D4001E19FB /* TempMailTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D4518781247C33D4001E19FB /* Build configuration list for PBXNativeTarget "TempMailTests" */;
+			buildPhases = (
+				D4518766247C33D4001E19FB /* Sources */,
+				D4518767247C33D4001E19FB /* Frameworks */,
+				D4518768247C33D4001E19FB /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				D451876C247C33D4001E19FB /* PBXTargetDependency */,
+			);
+			name = TempMailTests;
+			productName = TempMailTests;
+			productReference = D451876A247C33D4001E19FB /* TempMailTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		D4518774247C33D4001E19FB /* TempMailUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D4518784247C33D4001E19FB /* Build configuration list for PBXNativeTarget "TempMailUITests" */;
+			buildPhases = (
+				D4518771247C33D4001E19FB /* Sources */,
+				D4518772247C33D4001E19FB /* Frameworks */,
+				D4518773247C33D4001E19FB /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				D4518777247C33D4001E19FB /* PBXTargetDependency */,
+			);
+			name = TempMailUITests;
+			productName = TempMailUITests;
+			productReference = D4518775247C33D4001E19FB /* TempMailUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		D451874C247C33D1001E19FB /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 1140;
+				LastUpgradeCheck = 1140;
+				ORGANIZATIONNAME = "Aravind Koneru";
+				TargetAttributes = {
+					D4518753247C33D1001E19FB = {
+						CreatedOnToolsVersion = 11.4.1;
+					};
+					D4518769247C33D4001E19FB = {
+						CreatedOnToolsVersion = 11.4.1;
+						TestTargetID = D4518753247C33D1001E19FB;
+					};
+					D4518774247C33D4001E19FB = {
+						CreatedOnToolsVersion = 11.4.1;
+						TestTargetID = D4518753247C33D1001E19FB;
+					};
+				};
+			};
+			buildConfigurationList = D451874F247C33D1001E19FB /* Build configuration list for PBXProject "TempMail" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = D451874B247C33D1001E19FB;
+			productRefGroup = D4518755247C33D1001E19FB /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				D4518753247C33D1001E19FB /* TempMail */,
+				D4518769247C33D4001E19FB /* TempMailTests */,
+				D4518774247C33D4001E19FB /* TempMailUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		D4518752247C33D1001E19FB /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D4518764247C33D4001E19FB /* LaunchScreen.storyboard in Resources */,
+				D4518761247C33D4001E19FB /* Preview Assets.xcassets in Resources */,
+				D451875E247C33D4001E19FB /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D4518768247C33D4001E19FB /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D4518773247C33D4001E19FB /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		D4518750247C33D1001E19FB /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D4518758247C33D1001E19FB /* AppDelegate.swift in Sources */,
+				D451875A247C33D1001E19FB /* SceneDelegate.swift in Sources */,
+				D451875C247C33D1001E19FB /* ContentView.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D4518766247C33D4001E19FB /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D451876F247C33D4001E19FB /* TempMailTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D4518771247C33D4001E19FB /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D451877A247C33D4001E19FB /* TempMailUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		D451876C247C33D4001E19FB /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = D4518753247C33D1001E19FB /* TempMail */;
+			targetProxy = D451876B247C33D4001E19FB /* PBXContainerItemProxy */;
+		};
+		D4518777247C33D4001E19FB /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = D4518753247C33D1001E19FB /* TempMail */;
+			targetProxy = D4518776247C33D4001E19FB /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		D4518762247C33D4001E19FB /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				D4518763247C33D4001E19FB /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		D451877C247C33D4001E19FB /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.4;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		D451877D247C33D4001E19FB /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.4;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		D451877F247C33D4001E19FB /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_ASSET_PATHS = "\"TempMail/Preview Content\"";
+				ENABLE_PREVIEWS = YES;
+				INFOPLIST_FILE = TempMail/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = BrownKids.TempMail;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		D4518780247C33D4001E19FB /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_ASSET_PATHS = "\"TempMail/Preview Content\"";
+				ENABLE_PREVIEWS = YES;
+				INFOPLIST_FILE = TempMail/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = BrownKids.TempMail;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		D4518782247C33D4001E19FB /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = TempMailTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.4;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = BrownKids.TempMailTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/TempMail.app/TempMail";
+			};
+			name = Debug;
+		};
+		D4518783247C33D4001E19FB /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = TempMailTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.4;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = BrownKids.TempMailTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/TempMail.app/TempMail";
+			};
+			name = Release;
+		};
+		D4518785247C33D4001E19FB /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = TempMailUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = BrownKids.TempMailUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = TempMail;
+			};
+			name = Debug;
+		};
+		D4518786247C33D4001E19FB /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = TempMailUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = BrownKids.TempMailUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = TempMail;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		D451874F247C33D1001E19FB /* Build configuration list for PBXProject "TempMail" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D451877C247C33D4001E19FB /* Debug */,
+				D451877D247C33D4001E19FB /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		D451877E247C33D4001E19FB /* Build configuration list for PBXNativeTarget "TempMail" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D451877F247C33D4001E19FB /* Debug */,
+				D4518780247C33D4001E19FB /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		D4518781247C33D4001E19FB /* Build configuration list for PBXNativeTarget "TempMailTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D4518782247C33D4001E19FB /* Debug */,
+				D4518783247C33D4001E19FB /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		D4518784247C33D4001E19FB /* Build configuration list for PBXNativeTarget "TempMailUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D4518785247C33D4001E19FB /* Debug */,
+				D4518786247C33D4001E19FB /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = D451874C247C33D1001E19FB /* Project object */;
+}
