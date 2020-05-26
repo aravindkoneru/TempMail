@@ -49,6 +49,7 @@
 		D4518775247C33D4001E19FB /* TempMailUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TempMailUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D4518779247C33D4001E19FB /* TempMailUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TempMailUITests.swift; sourceTree = "<group>"; };
 		D451877B247C33D4001E19FB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D4B2E434247D93D100688862 /* RequestFramework.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = RequestFramework.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -106,6 +107,7 @@
 				D4518762247C33D4001E19FB /* LaunchScreen.storyboard */,
 				D4518765247C33D4001E19FB /* Info.plist */,
 				D451875F247C33D4001E19FB /* Preview Content */,
+				D4B2E434247D93D100688862 /* RequestFramework.playground */,
 			);
 			path = TempMail;
 			sourceTree = "<group>";
