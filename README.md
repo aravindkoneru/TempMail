@@ -10,3 +10,6 @@ TODO
 - [ ] manually refresh for new mail
 - [ ] extend time that email address is valid
 - [ ] keep email available when app closed and re-opened
+
+Low Fidelity Prototype
+---
