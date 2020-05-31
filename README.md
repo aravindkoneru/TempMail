@@ -13,4 +13,4 @@ TODO
 
 Low Fidelity Prototype
 ---
-![](prototypes/Low_Fidelity.jpg)
+<img src="prototypes/Low_Fidelity.jpg" width="100" height="20">
