@@ -13,4 +13,4 @@ TODO
 
 Low Fidelity Prototype
 ---
-![](images/Low_Fidelity.jpg)
+![](prototypes/Low_Fidelity.jpg)
