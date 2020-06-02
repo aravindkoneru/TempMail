@@ -15,6 +15,8 @@
 		D4518764247C33D4001E19FB /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D4518762247C33D4001E19FB /* LaunchScreen.storyboard */; };
 		D451876F247C33D4001E19FB /* TempMailTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D451876E247C33D4001E19FB /* TempMailTests.swift */; };
 		D451877A247C33D4001E19FB /* TempMailUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4518779247C33D4001E19FB /* TempMailUITests.swift */; };
+		D4D4EE8124856211003B5E0A /* MessageRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4D4EE8024856211003B5E0A /* MessageRow.swift */; };
+		D4F1A8C72486B2E50011B8B2 /* DataModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4F1A8C62486B2E50011B8B2 /* DataModels.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -50,6 +52,8 @@
 		D4518779247C33D4001E19FB /* TempMailUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TempMailUITests.swift; sourceTree = "<group>"; };
 		D451877B247C33D4001E19FB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D4B2E434247D93D100688862 /* RequestFramework.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = RequestFramework.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		D4D4EE8024856211003B5E0A /* MessageRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageRow.swift; sourceTree = "<group>"; };
+		D4F1A8C62486B2E50011B8B2 /* DataModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataModels.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -100,6 +104,7 @@
 		D4518756247C33D1001E19FB /* TempMail */ = {
 			isa = PBXGroup;
 			children = (
+				D4F1A8C52486B2AB0011B8B2 /* utils */,
 				D4518757247C33D1001E19FB /* AppDelegate.swift */,
 				D4518759247C33D1001E19FB /* SceneDelegate.swift */,
 				D451875B247C33D1001E19FB /* ContentView.swift */,
@@ -136,6 +141,15 @@
 				D451877B247C33D4001E19FB /* Info.plist */,
 			);
 			path = TempMailUITests;
+			sourceTree = "<group>";
+		};
+		D4F1A8C52486B2AB0011B8B2 /* utils */ = {
+			isa = PBXGroup;
+			children = (
+				D4D4EE8024856211003B5E0A /* MessageRow.swift */,
+				D4F1A8C62486B2E50011B8B2 /* DataModels.swift */,
+			);
+			path = utils;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -269,7 +283,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D4D4EE8124856211003B5E0A /* MessageRow.swift in Sources */,
 				D4518758247C33D1001E19FB /* AppDelegate.swift in Sources */,
+				D4F1A8C72486B2E50011B8B2 /* DataModels.swift in Sources */,
 				D451875A247C33D1001E19FB /* SceneDelegate.swift in Sources */,
 				D451875C247C33D1001E19FB /* ContentView.swift in Sources */,
 			);
@@ -438,6 +454,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"TempMail/Preview Content\"";
+				DEVELOPMENT_TEAM = BDYX3HX359;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = TempMail/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -457,6 +474,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"TempMail/Preview Content\"";
+				DEVELOPMENT_TEAM = BDYX3HX359;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = TempMail/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
