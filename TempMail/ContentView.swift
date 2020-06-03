@@ -9,8 +9,8 @@
 import SwiftUI
 
 struct ContentView: View {
-    
-    var email_addr: String
+    //variables for Email struct and
+    @State var email = Email()
     
     var body: some View {
         VStack {
@@ -18,9 +18,8 @@ struct ContentView: View {
                 .font(.largeTitle)
                 .padding()
             Spacer()
-            
             Button(action: {
-                print("generate new email addr")
+                self.email.GenEmail()
             }) {
                 Text("Generate New Email")
                     .fontWeight(.bold)
@@ -32,7 +31,7 @@ struct ContentView: View {
             
             Spacer()
             
-            Text("Current Address: \(email_addr)")
+            Text(email.getEmailAddr())
                 .padding()
             
             Spacer()
@@ -54,6 +53,6 @@ struct ContentView: View {
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView(email_addr: "bob@example.com")
+        ContentView()
     }
 }
