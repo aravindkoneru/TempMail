@@ -9,10 +9,10 @@
 //This is supposed to be an "Email" Object. The purpose of the email object will be to generate and store the email address, along with the emails attached to it. 
 import SwiftUI
 
-struct Email: Hashable, Codable {
-    var email_addr:String?
+class Email : ObservableObject{
+    @Published var email_addr:String?
     
-    mutating func GenEmail() {
+     func GenEmail() {
         //list of acceptable chars
          let letters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
          //returns a random permutation of letters; string of up to length 9 for email addr

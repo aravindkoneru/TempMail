@@ -10,7 +10,7 @@ import SwiftUI
 
 struct ContentView: View {
 //    variable for Email struct
-    @State var email = Email()
+    @ObservedObject var email = Email()
     
     var body: some View {
         VStack {
@@ -35,7 +35,7 @@ struct ContentView: View {
             
             Spacer()
 //            display email address for user
-            Text(email.getEmailAddr())
+            Text(self.email.getEmailAddr())
                 .padding()
             
             Spacer()
