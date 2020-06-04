@@ -12,25 +12,25 @@ import SwiftUI
 class Email : ObservableObject{
     @Published var email_addr: String
     
-//    init method
-    init(){
+//  init method
+    init() {
         self.email_addr = ""
         genEmailAddr()
     }
-//    generates an email address
-     func genEmailAddr() -> Void {
+//  generates an email address
+    func genEmailAddr() -> Void {
         //list of acceptable chars
-         let letters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
-         //returns a random permutation of letters; string of up to length 9 for email addr
-         self.email_addr = String((0..<9).map{ _ in letters.randomElement()!})
-     }
-     
-     //getter for email addr
-     func getEmailAddr() -> String {
+        let letters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
+//      returns a random permutation of letters; string of up to length 9       for email addr
+        self.email_addr = String((0..<9).map{ _ in letters.randomElement()!})
+    }
+    
+//  getter for email addr
+    func getEmailAddr() -> String {
         return "Current Address: \(email_addr)@1secmail.com"
-     }
-    //getter for emails
+    }
+//  getter for emails
     func getEmails() {
-        //make the HTTP GET request to return the JSON shit
+//        make the HTTP GET request to return the JSON shit
     }
 }
