@@ -10,21 +10,21 @@ import SwiftUI
 
 struct ContentView: View {
 //    variable for Email struct
-    @ObservedObject var email = Email()
+    @ObservedObject var email: Email = Email()
+    
+    private let defaults = UserDefaults.standard
     
     var body: some View {
         VStack {
-//            title
+//          title
             Text("Temp Mail")
                 .font(.largeTitle)
                 .padding()
             Spacer()
-//            Generate new email button
+//          Generate new email button
             Button(action: {
-//                generates new email addr
-                self.email.GenEmail()
+                self.email.genEmailAddr()
             }) {
-//                button txt
                 Text("Generate New Email")
                     .fontWeight(.bold)
                     .foregroundColor(.blue)
@@ -34,12 +34,12 @@ struct ContentView: View {
             }
             
             Spacer()
-//            display email address for user
+//          display email address for user
             Text(self.email.getEmailAddr())
                 .padding()
             
             Spacer()
-//            List of emails attached to above address
+//          List of emails attached to above address
             List {
                 MessageRow(messageInfo: InboxModel(id: 1234,
                                                    from: "sender@example.com",

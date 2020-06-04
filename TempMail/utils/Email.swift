@@ -10,9 +10,15 @@
 import SwiftUI
 
 class Email : ObservableObject{
-    @Published var email_addr:String?
+    @Published var email_addr: String
     
-     func GenEmail() {
+//    init method
+    init(){
+        self.email_addr = ""
+        genEmailAddr()
+    }
+//    generates an email address
+     func genEmailAddr() -> Void {
         //list of acceptable chars
          let letters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
          //returns a random permutation of letters; string of up to length 9 for email addr
@@ -21,15 +27,10 @@ class Email : ObservableObject{
      
      //getter for email addr
      func getEmailAddr() -> String {
-         if email_addr != nil{
-             return "Current Address: \(email_addr!)@1secmail.com"
-         }
-         else{
-             return "Press \"Generate New Email\" to get started! "
-         }
+        return "Current Address: \(email_addr)@1secmail.com"
      }
     //getter for emails
-    func getEmails(){
+    func getEmails() {
         //make the HTTP GET request to return the JSON shit
     }
 }
