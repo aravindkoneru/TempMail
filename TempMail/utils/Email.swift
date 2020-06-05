@@ -27,7 +27,7 @@ class Email : ObservableObject{
     
 //  getter for email addr
     func getEmailAddr() -> String {
-        return "\(email_addr)@1secmail.com"
+        return email_addr
     }
 //  getter for emails
     func getEmails() {

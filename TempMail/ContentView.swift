@@ -11,7 +11,7 @@ import SwiftUI
 struct ContentView: View {
 //    variable for Email struct
     @ObservedObject var email: Email = Email()
-    
+    //this variable is for later, when I implement a feature that will save user data even when the app is closed
     private let defaults = UserDefaults.standard
     
     var body: some View {
@@ -35,7 +35,7 @@ struct ContentView: View {
             
             Spacer()
 //          display email address for user
-            Text("Current Address: \(self.email.getEmailAddr())")
+            Text("Current Address: \(self.email.getEmailAddr())@1secmail.com")
                 .padding()
             
             Spacer()
