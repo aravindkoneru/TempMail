@@ -23,7 +23,7 @@ struct ContentView: View {
             Spacer()
 //          Generate new email button
             Button(action: {
-                self.email.genEmailAddr()
+                self.email.setNewEmailAddr()
             }) {
                 Text("Generate New Email")
                     .fontWeight(.bold)
@@ -35,7 +35,7 @@ struct ContentView: View {
             
             Spacer()
 //          display email address for user
-            Text(self.email.getEmailAddr())
+            Text("Current Address: \(self.email.getEmailAddr())")
                 .padding()
             
             Spacer()

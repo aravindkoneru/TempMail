@@ -15,10 +15,10 @@ class Email : ObservableObject{
 //  init method
     init() {
         self.email_addr = ""
-        genEmailAddr()
+        setNewEmailAddr()
     }
 //  generates an email address
-    func genEmailAddr() -> Void {
+    func setNewEmailAddr() -> Void {
         //list of acceptable chars
         let letters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
 //      returns a random permutation of letters; string of up to length 9       for email addr
@@ -27,7 +27,7 @@ class Email : ObservableObject{
     
 //  getter for email addr
     func getEmailAddr() -> String {
-        return "Current Address: \(email_addr)@1secmail.com"
+        return "\(email_addr)@1secmail.com"
     }
 //  getter for emails
     func getEmails() {
