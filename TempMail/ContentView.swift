@@ -11,13 +11,15 @@ import SwiftUI
 
 struct ContentView: View {
     @State var orientation: UIDeviceOrientation = UIDevice.current.orientation
-    var email_addr: String
+//    variable for Email struct
+    @ObservedObject var email: Email = Email()
+    //this variable is for later, when I implement a feature that will save user data even when the app is closed
+    private let defaults = UserDefaults.standard
     
     // TODO: can the header be abstracted? lots of repeated code...
-    
     var body: some View {
         return HStack {
-            if orientation.isPortrait {
+            if orientation.isPortrait || orientation.isFlat {
                 VStack {
                     Text("Temp Mail")
                         .font(.largeTitle)
@@ -25,7 +27,7 @@ struct ContentView: View {
                     Spacer()
                     
                     Button(action: {
-                        print("generate new email addr")
+                        self.email.setNewEmailAddr()
                     }) {
                         Text("Generate New Email")
                             .fontWeight(.bold)
@@ -39,10 +41,9 @@ struct ContentView: View {
                     
                     Button(action: {
                         print("copy to clipboard")
-                        UIPasteboard.general.string = self.email_addr
-                        //                let copiedIcon = UIImage(systemName: "doc.on.clipboard")
+                        UIPasteboard.general.string = "\(self.email.getEmailAddr())@1secmail.com"
                     }) {
-                        Text("\(email_addr)")
+                        Text("\(self.email.getEmailAddr())@1secmail.com")
                             .padding()
                             .foregroundColor(.black)
                             .font(.title)
@@ -71,7 +72,7 @@ struct ContentView: View {
                         .padding()
                     
                     Button(action: {
-                        print("generate new email addr")
+                        self.email.setNewEmailAddr()
                     }) {
                         Text("Generate New Email")
                             .fontWeight(.bold)
@@ -83,10 +84,9 @@ struct ContentView: View {
                     
                     Button(action: {
                         print("copy to clipboard")
-                        UIPasteboard.general.string = self.email_addr
-                        //                let copiedIcon = UIImage(systemName: "doc.on.clipboard")
+                        UIPasteboard.general.string = "\(self.email.getEmailAddr())@1secmail.com"
                     }) {
-                        Text("\(email_addr)")
+                        Text("\(self.email.getEmailAddr())@1secmail.com")
                             .padding()
                             .foregroundColor(.black)
                             .font(.title)
@@ -110,12 +110,14 @@ struct ContentView: View {
         }
         .onReceive(NotificationCenter.Publisher(center: .default, name: UIDevice.orientationDidChangeNotification)) {_ in
             self.orientation = UIDevice.current.orientation
+            print("portrait?: \(self.orientation.isPortrait)")
+            print("flat?: \(self.orientation.isFlat)\n")
         }
     }
 }
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView(email_addr: "bob@example.com")
+        ContentView()
     }
 }
