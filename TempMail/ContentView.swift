@@ -19,7 +19,7 @@ struct ContentView: View {
     // TODO: can the header be abstracted? lots of repeated code...
     var body: some View {
         return HStack {
-            if orientation.isPortrait || orientation.isFlat {
+            if orientation.isPortrait || orientation.isFlat { // TODO: test more to ensure that this is desired behavior
                 VStack {
                     Text("Temp Mail")
                         .font(.largeTitle)
