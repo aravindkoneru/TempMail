@@ -8,7 +8,7 @@
 
 import SwiftUI
 
-struct MessageRow: View {
+struct InboxRow: View {
     var messageInfo: InboxModel
 
     var body: some View {
@@ -29,7 +29,7 @@ struct MessageRow: View {
 
 struct MessageRow_Previews: PreviewProvider {
     static var previews: some View {
-        MessageRow(messageInfo: InboxModel(id: 1234,
+        InboxRow(messageInfo: InboxModel(id: 1234,
                                            from: "sender@example.com",
                                            subject: "example subject",
                                            date: "Today"))
