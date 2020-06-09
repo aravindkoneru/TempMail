@@ -17,6 +17,7 @@ class Email : ObservableObject{
     init() {
         self.email_addr = ""
         self.inbox = [InboxModel]()
+        loadInbox()
         setNewEmailAddr()
     }
     //  generates an email address
@@ -32,32 +33,28 @@ class Email : ObservableObject{
         //creates the timer to refresh every second and run the code in the block
         Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { timer in
             //creates the url that will make the API call
-            guard let url = URL(string: "https://www.1secmail.com/api/v1/?action=getMessages&login=\(self.email_addr)&domain=1secmail.com")
-                else {
-                print("Invalid URL")
-                return
-            }
-            //creates the GET Request
-            let request = URLRequest(url: url)
-            URLSession.shared.dataTask(with: request) { (data, response, error) in
-                if let data = data {
-                    if let decodedResponse = try? JSONDecoder().decode([InboxModel].self, from: data) {
+            let url = URL(string: "https://www.1secmail.com/api/v1/?action=getMessages&login=\(self.email_addr)&domain=1secmail.com")!
+            
+            //sends URL request to server
+            URLSession.shared.dataTask(with: url) { (data, response, error) in
+                do {
+                    if let data = data {
+                        let decodedResponse = try JSONDecoder().decode([InboxModel].self, from: data)
                         // we have good data – go back to the main thread
                         DispatchQueue.main.async {
                             // update our inbox instance variable
                             self.inbox = decodedResponse
                         }
-                        
-                        // everything is good, so we can exit
-                        return
+                    } else {
+                        print("No Data to fetch")
                     }
+                } catch {
+                    print("Fetch failed: \(error.localizedDescription )")
                 }
-                // if we're still here it means there was a problem
-                print("Fetch failed: \(error?.localizedDescription ?? "Unknown error")")
             }.resume()
         }
     }
-
+    
     
     //  getter for email addr
     func getEmailAddr() -> String {
@@ -73,11 +70,5 @@ class Email : ObservableObject{
     // gets the contents of an individual message
     func getMessageContent(id: Int) -> MessageModel {
         return MessageModel(id: 1, from: "from@example.com", subject: "sample subject", date: "Today", attachments: nil, body: "somne text", textBody: "some text", htmlBody: "<h1> some text </h1>")
-    }
-}
-
-struct Email_Previews: PreviewProvider {
-    static var previews: some View {
-        /*@START_MENU_TOKEN@*/Text("Hello, World!")/*@END_MENU_TOKEN@*/
     }
 }

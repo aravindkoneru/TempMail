@@ -49,7 +49,7 @@ struct ContentView: View {
                     NavigationLink(destination: MessageView(message: self.email.getMessageContent(id: message.id))) {
                         InboxRow(messageInfo: message)
                     }
-                }.onAppear(perform: email.loadInbox)
+                }
                 .navigationBarHidden(true)
                 .navigationBarTitle("", displayMode: .inline)
                 
