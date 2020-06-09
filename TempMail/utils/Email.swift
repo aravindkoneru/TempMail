@@ -11,11 +11,12 @@ import SwiftUI
 
 class Email : ObservableObject{
     @Published var email_addr: String
-    @Published var inbox: [InboxModel] = [InboxModel]()
+    @Published var inbox: [InboxModel]
     
     //  init method
     init() {
         self.email_addr = ""
+        self.inbox = [InboxModel]()
         setNewEmailAddr()
     }
     //  generates an email address
