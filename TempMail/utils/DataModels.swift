@@ -13,6 +13,13 @@ public struct InboxModel: Hashable, Codable, Identifiable {
     let from: String
     let subject: String
     let date: String
+    
+    enum CodingKeys: String, CodingKey {
+        case id = "id"
+        case from = "from"
+        case subject = "subject"
+        case date = "date"
+    }
 }
 
 public struct MessageModel: Hashable, Codable {
