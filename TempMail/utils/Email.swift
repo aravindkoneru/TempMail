@@ -29,30 +29,32 @@ class Email : ObservableObject{
     }
     
     // loads the Inbox that corresponds to the email address from the server, refreshing every second
-    func loadInbox() {
+    func loadInbox() -> Void {
         //creates the timer to refresh every second and run the code in the block
-        Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { timer in
+        Timer.scheduledTimer(withTimeInterval: 30, repeats: true) { timer in
             //creates the url that will make the API call
             let url = URL(string: "https://www.1secmail.com/api/v1/?action=getMessages&login=\(self.email_addr)&domain=1secmail.com")!
-            
-            //sends URL request to server
-            URLSession.shared.dataTask(with: url) { (data, response, error) in
-                do {
-                    if let data = data {
-                        let decodedResponse = try JSONDecoder().decode([InboxModel].self, from: data)
-                        // we have good data – go back to the main thread
-                        DispatchQueue.main.async {
-                            // update our inbox instance variable
-                            self.inbox = decodedResponse
-                        }
-                    } else {
-                        print("No Data to fetch")
-                    }
-                } catch {
-                    print("Fetch failed: \(error.localizedDescription )")
-                }
-            }.resume()
+            self.decodeInbox(url: url)
         }
+    }
+    //sends request and decodes the JSON message that comes from server to get the inbox.
+    func decodeInbox(url: URL) -> Void {
+        URLSession.shared.dataTask(with: url) { (data, response, error) in
+            do {
+                if let data = data {
+                    let decodedResponse = try JSONDecoder().decode([InboxModel].self, from: data)
+                    // we have good data – go back to the main thread
+                    DispatchQueue.main.async {
+                        // update our inbox instance variable
+                        self.inbox = decodedResponse
+                    }
+                } else {
+                    print("No Data to fetch")
+                }
+            } catch {
+                print("Fetch failed: \(error.localizedDescription )")
+            }
+        }.resume()
     }
     
     
