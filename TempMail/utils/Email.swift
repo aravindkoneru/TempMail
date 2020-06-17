@@ -12,14 +12,20 @@ import SwiftUI
 class Email : ObservableObject{
     @Published var email_addr: String
     @Published var inbox: [InboxModel]
+    var requestUrl: URLComponents
     
     //  init method
     init() {
         self.email_addr = ""
         self.inbox = [InboxModel]()
+        requestUrl = URLComponents()
+        requestUrl.scheme = "https"
+        requestUrl.host = "1secmail.com"
+        requestUrl.path = "/api/v1/"
         loadInbox()
         setNewEmailAddr()
     }
+    
     //  generates an email address
     func setNewEmailAddr() -> Void {
         //list of acceptable chars
@@ -31,39 +37,49 @@ class Email : ObservableObject{
     // loads the Inbox that corresponds to the email address from the server, refreshing every second
     func loadInbox() -> Void {
         //creates the timer to refresh every second and run the code in the block
-        Timer.scheduledTimer(withTimeInterval: 30, repeats: true) { timer in
+        Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { timer in
             //creates the url that will make the API call
-            let url = URL(string: "https://www.1secmail.com/api/v1/?action=getMessages&login=\(self.email_addr)&domain=1secmail.com")!
-            self.decodeInbox(url: url)
+            self.requestUrl.queryItems = [
+                URLQueryItem(name: "action", value: "getMessages"),
+                URLQueryItem(name: "domain", value: "1secmail.com"),
+                URLQueryItem(name: "login", value: "test")
+            ]
+            guard let request = self.requestUrl.url else {fatalError()}
+            //makes the request to server
+            URLSession.shared.dataTask(with: request) { (data, response, error) in
+                if let error = error {
+                    print("Error: \(error)")
+                    return
+                }
+                
+                guard let data = data else {return}
+                //updates instance variable
+                DispatchQueue.main.async {
+                    guard let inbox = self.parseInboxData(data: data) else {return}
+                    self.inbox = inbox
+                }
+            }.resume()
         }
     }
-    //sends request and decodes the JSON message that comes from server to get the inbox.
-    func decodeInbox(url: URL) -> Void {
-        URLSession.shared.dataTask(with: url) { (data, response, error) in
-            do {
-                if let data = data {
-                    let decodedResponse = try JSONDecoder().decode([InboxModel].self, from: data)
-                    // we have good data – go back to the main thread
-                    DispatchQueue.main.async {
-                        // update our inbox instance variable
-                        self.inbox = decodedResponse
-                    }
-                } else {
-                    print("No Data to fetch")
-                }
-            } catch {
-                print("Fetch failed: \(error.localizedDescription )")
-            }
-        }.resume()
-    }
     
+    //parses Inbox JSON data
+    func parseInboxData(data: Data) -> [InboxModel]? {
+        var response: [InboxModel]?
+        do {
+            response = try JSONDecoder().decode([InboxModel].self, from: data)
+        } catch {
+            print("Fetch failed: \(error.localizedDescription)")
+        }
+        return response
+    }
     
     //  getter for email addr
     func getEmailAddr() -> String {
         return email_addr
     }
+    
     //  getter for emails
-    func getEmails() -> [InboxModel] {
+    func getInbox() -> [InboxModel] {
         return inbox
     }
     
