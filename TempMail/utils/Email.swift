@@ -35,7 +35,7 @@ class Email : ObservableObject{
     }
     
     // loads the Inbox that corresponds to the email address from the server, refreshing every second
-    func loadInbox() -> Void {
+    private func loadInbox() -> Void {
         //creates the timer to refresh every second and run the code in the block
         Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { timer in
             //creates the url that will make the API call
