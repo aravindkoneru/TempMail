@@ -63,7 +63,7 @@ class Email : ObservableObject{
     }
     
     //parses Inbox JSON data
-    func parseInboxData(data: Data) -> [InboxModel]? {
+    private func parseInboxData(data: Data) -> [InboxModel]? {
         var response: [InboxModel]?
         do {
             response = try JSONDecoder().decode([InboxModel].self, from: data)
