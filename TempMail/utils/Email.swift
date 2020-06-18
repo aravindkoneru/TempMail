@@ -32,12 +32,16 @@ class Email : ObservableObject{
         let letters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
         //      returns a random permutation of letters; string of up to length 8 for email addr
         self.email_addr = String((0..<8).map{ _ in letters.randomElement()!})
+//        reset inbox
+        self.inbox = [InboxModel]()
+        
     }
     
     // loads the Inbox that corresponds to the email address from the server, refreshing every second
     private func loadInbox() -> Void {
         //creates the timer to refresh every 30 seconds and run the code in the block
         Timer.scheduledTimer(withTimeInterval: 30, repeats: true) { timer in
+            let email_addr = self.email_addr
             //creates the url that will make the API call
             self.requestUrl.queryItems = [
                 URLQueryItem(name: "action", value: "getMessages"),
@@ -55,8 +59,10 @@ class Email : ObservableObject{
                 guard let data = data else {return}
                 //updates instance variable
                 DispatchQueue.main.async {
-                    guard let inbox = self.parseInboxData(data: data) else {return}
-                    self.inbox = inbox
+                    if self.email_addr == email_addr {
+                        guard let inbox = self.parseInboxData(data: data) else {return}
+                        self.inbox = inbox
+                    }
                 }
             }.resume()
         }
