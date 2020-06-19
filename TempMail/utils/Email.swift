@@ -10,31 +10,27 @@
 import SwiftUI
 
 class Email : ObservableObject{
-    @Published var email_addr: String
-    @Published var inbox: [InboxModel]
-    var requestUrl: URLComponents
+    @Published var email_addr: String?
+    @Published var inbox: [InboxModel]?
     
     //  init method
     init() {
-        self.email_addr = ""
-        self.inbox = [InboxModel]()
-        requestUrl = URLComponents()
-        requestUrl.scheme = "https"
-        requestUrl.host = "1secmail.com"
-        requestUrl.path = "/api/v1/"
+        reset()
+    }
+    
+    //resets the email
+    func reset() -> Void {
+        self.inbox = nil
+        self.email_addr = setNewEmailAddr()
         loadInbox()
-        setNewEmailAddr()
     }
     
     //  generates an email address
-    func setNewEmailAddr() -> Void {
+    func setNewEmailAddr() -> String {
         //list of acceptable chars
         let letters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
         //      returns a random permutation of letters; string of up to length 8 for email addr
-        self.email_addr = String((0..<8).map{ _ in letters.randomElement()!})
-//        reset inbox
-        self.inbox = [InboxModel]()
-        
+        return String((0..<8).map{ _ in letters.randomElement()!})
     }
     
     // loads the Inbox that corresponds to the email address from the server, refreshing every second
@@ -43,24 +39,18 @@ class Email : ObservableObject{
         Timer.scheduledTimer(withTimeInterval: 30, repeats: true) { timer in
             let email_addr = self.email_addr
             //creates the url that will make the API call
-            self.requestUrl.queryItems = [
-                URLQueryItem(name: "action", value: "getMessages"),
-                URLQueryItem(name: "domain", value: "1secmail.com"),
-                URLQueryItem(name: "login", value: self.email_addr)
-            ]
-            guard let request = self.requestUrl.url else {fatalError()}
+            guard let url = URL(string: "https://www.1secmail.com/api/v1/?action=getMessages&login=\(self.email_addr!)&domain=1secmail.com") else {fatalError("Invalid URL")}
             //makes the request to server
-            URLSession.shared.dataTask(with: request) { (data, response, error) in
+            URLSession.shared.dataTask(with: url) { (data, response, error) in
                 if let error = error {
                     print("Error: \(error)")
                     return
                 }
-                
                 guard let data = data else {return}
+                guard let inbox = self.parseInboxData(data: data) else {return}
                 //updates instance variable
                 DispatchQueue.main.async {
                     if self.email_addr == email_addr {
-                        guard let inbox = self.parseInboxData(data: data) else {return}
                         self.inbox = inbox
                     }
                 }
@@ -81,12 +71,12 @@ class Email : ObservableObject{
     
     //  getter for email addr
     func getEmailAddr() -> String {
-        return email_addr
+        return email_addr!
     }
     
     //  getter for emails
     func getInbox() -> [InboxModel] {
-        return inbox
+        return inbox ?? [InboxModel]()
     }
     
     
