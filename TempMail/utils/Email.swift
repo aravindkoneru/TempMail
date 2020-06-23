@@ -18,7 +18,6 @@ class Email : ObservableObject{
         //need to initialize email_addr to an empty string first to avoid the error: "self" used in method call before all stored properties are initialized
         self.email_addr = ""
         self.email_addr = genNewEmailAddr()
-        self.inbox = nil
         loadInbox()
     }
     
