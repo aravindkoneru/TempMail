@@ -17,7 +17,7 @@ class Email : ObservableObject{
     init() {
         //need to initialize email_addr to an empty string first to avoid the error: "self" used in method call before all stored properties are initialized
         self.email_addr = ""
-        self.email_addr = getNewEmailAddr()
+        self.email_addr = genNewEmailAddr()
         self.inbox = nil
         loadInbox()
     }
@@ -25,11 +25,11 @@ class Email : ObservableObject{
     //resets the email
     func reset() -> Void {
         self.inbox = nil
-        self.email_addr = getNewEmailAddr()
+        self.email_addr = genNewEmailAddr()
     }
     
     //  generates an email address
-    func getNewEmailAddr() -> String {
+    func genNewEmailAddr() -> String {
         //list of acceptable chars
         let letters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
         //      returns a random permutation of letters; string of up to length 8 for email addr
@@ -78,8 +78,8 @@ class Email : ObservableObject{
     }
     
     //  getter for emails
-    func getInbox() -> [InboxModel] {
-        return inbox ?? [InboxModel]()
+    func getInbox() -> [InboxModel]? {
+        return inbox
     }
     
     
