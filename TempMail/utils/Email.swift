@@ -10,23 +10,26 @@
 import SwiftUI
 
 class Email : ObservableObject{
-    @Published var email_addr: String?
+    @Published var email_addr: String
     @Published var inbox: [InboxModel]?
     
     //  init method
     init() {
-        reset()
+        //need to initialize email_addr to an empty string first to avoid the error: "self" used in method call before all stored properties are initialized
+        self.email_addr = ""
+        self.email_addr = getNewEmailAddr()
+        self.inbox = nil
+        loadInbox()
     }
     
     //resets the email
     func reset() -> Void {
         self.inbox = nil
-        self.email_addr = setNewEmailAddr()
-        loadInbox()
+        self.email_addr = getNewEmailAddr()
     }
     
     //  generates an email address
-    func setNewEmailAddr() -> String {
+    func getNewEmailAddr() -> String {
         //list of acceptable chars
         let letters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
         //      returns a random permutation of letters; string of up to length 8 for email addr
@@ -39,7 +42,7 @@ class Email : ObservableObject{
         Timer.scheduledTimer(withTimeInterval: 30, repeats: true) { timer in
             let email_addr = self.email_addr
             //creates the url that will make the API call
-            guard let url = URL(string: "https://www.1secmail.com/api/v1/?action=getMessages&login=\(self.email_addr!)&domain=1secmail.com") else {fatalError("Invalid URL")}
+            guard let url = URL(string: "https://www.1secmail.com/api/v1/?action=getMessages&login=\(self.email_addr)&domain=1secmail.com") else {fatalError("Invalid URL")}
             //makes the request to server
             URLSession.shared.dataTask(with: url) { (data, response, error) in
                 if let error = error {
@@ -71,7 +74,7 @@ class Email : ObservableObject{
     
     //  getter for email addr
     func getEmailAddr() -> String {
-        return email_addr!
+        return email_addr
     }
     
     //  getter for emails

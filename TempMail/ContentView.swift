@@ -34,7 +34,9 @@ struct ContentView: View {
                 Spacer()
                 
                 Button(action: {
-                    self.email.reset()                }) {
+                    self.email.reset()
+                    
+                }) {
                     Text("Generate New Email")
                         .fontWeight(.bold)
                         .foregroundColor(.blue)
