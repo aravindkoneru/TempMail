@@ -34,6 +34,7 @@ struct ContentView: View {
                 
                 Button(action: {
                     self.email.reset()
+                    
                 }) {
                     Text("Generate New Email")
                         .fontWeight(.bold)
