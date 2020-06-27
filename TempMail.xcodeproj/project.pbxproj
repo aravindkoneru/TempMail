@@ -87,6 +87,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		D423E8E824A54B8B00F96969 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				D4D4EE8024856211003B5E0A /* InboxRow.swift */,
+				D4C32A72248BD2F000EC426A /* MessageView.swift */,
+				D4C32A74248BD7B700EC426A /* HTMLStringView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
 		D451874B247C33D1001E19FB = {
 			isa = PBXGroup;
 			children = (
@@ -110,6 +120,7 @@
 		D4518756247C33D1001E19FB /* TempMail */ = {
 			isa = PBXGroup;
 			children = (
+				D423E8E824A54B8B00F96969 /* Views */,
 				D4F1A8C52486B2AB0011B8B2 /* utils */,
 				D4518757247C33D1001E19FB /* AppDelegate.swift */,
 				D4518759247C33D1001E19FB /* SceneDelegate.swift */,
@@ -153,10 +164,7 @@
 			isa = PBXGroup;
 			children = (
 				D4A06D022488254C00123C37 /* Email.swift */,
-				D4D4EE8024856211003B5E0A /* InboxRow.swift */,
 				D4F1A8C62486B2E50011B8B2 /* DataModels.swift */,
-				D4C32A72248BD2F000EC426A /* MessageView.swift */,
-				D4C32A74248BD7B700EC426A /* HTMLStringView.swift */,
 			);
 			path = utils;
 			sourceTree = "<group>";
