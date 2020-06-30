@@ -12,6 +12,7 @@ import SwiftUI
 class Email : ObservableObject{
     @Published var email_addr: String
     @Published var inbox: [InboxModel]?
+    @Published var msgs: [Int:MessageModel]?
     
     //  init method
     init() {
@@ -23,6 +24,7 @@ class Email : ObservableObject{
     
     //resets the email
     func reset() -> Void {
+        self.msgs = nil
         self.inbox = nil
         self.email_addr = genNewEmailAddr()
     }
@@ -38,10 +40,10 @@ class Email : ObservableObject{
     // loads the Inbox that corresponds to the email address from the server, refreshing every second
     private func loadInbox() -> Void {
         //creates the timer to refresh every 30 seconds and run the code in the block
-        Timer.scheduledTimer(withTimeInterval: 30, repeats: true) { timer in
+        Timer.scheduledTimer(withTimeInterval: 5, repeats: true) { timer in
             let email_addr = self.email_addr
             //creates the url that will make the API call
-            guard let url = URL(string: "https://www.1secmail.com/api/v1/?action=getMessages&login=\(self.email_addr)&domain=1secmail.com") else {fatalError("Invalid URL")}
+            guard let url = URL(string: "https://www.1secmail.com/api/v1/?action=getMessages&login=test&domain=1secmail.com") else {fatalError("Invalid URL")}
             //makes the request to server
             URLSession.shared.dataTask(with: url) { (data, response, error) in
                 if let error = error {
@@ -71,6 +73,38 @@ class Email : ObservableObject{
         return response
     }
     
+    //fetches message data
+    private func fetchMessage(id: Int) -> MessageModel? {
+        if msgs![id] != nil {
+            return self.msgs![id]
+        }
+        guard let url = URL(string: "https://www.1secmail.com/api/v1/?action=readMessage&login=test&domain=1secmail.com&id=\(id)") else {fatalError("Invalid URL")}
+        //makes the request to server
+        URLSession.shared.dataTask(with: url) { (data, response, error) in
+            if let error = error {
+                print("Error: \(error)")
+                return
+            }
+            guard let data = data else {return}
+            guard let msg = self.parseMsgData(data: data) else {return}
+            //checks if the dictionary exists. If not, creates a blank one. I did this because it will not let me update a k,v pair in the dict without having a dict first.
+            //updates instance variable
+            DispatchQueue.main.async {
+                self.msgs![id] = msg
+            }
+        }.resume()
+        return self.msgs![id]
+    }
+    
+    private func parseMsgData(data: Data) -> MessageModel? {
+        var response: MessageModel?
+        do {
+            response = try JSONDecoder().decode(MessageModel.self, from: data)
+        } catch {
+            print("Fetch failed: \(error.localizedDescription)")
+        }
+        return response
+    }
     //  getter for email addr
     func getEmailAddr() -> String {
         return email_addr
@@ -81,10 +115,12 @@ class Email : ObservableObject{
         return inbox
     }
     
-    
-    // @TODO: implement real functionality
     // gets the contents of an individual message
-    func getMessageContent(id: Int) -> MessageModel {
-        return MessageModel(id: 1, from: "from@example.com", subject: "sample subject", date: "Today", attachments: nil, body: "somne text", textBody: "some text", htmlBody: "<h1> some text </h1>")
+    func getMessageContent(id: Int) -> MessageModel? {
+        // Checks to see if a msg dict exists. If not, create a new one so that I can add values to it.
+        if self.msgs == nil {
+            self.msgs = [:]
+        }
+        return fetchMessage(id: id)
     }
 }

@@ -45,9 +45,10 @@ struct ContentView: View {
                             .stroke(Color.blue, lineWidth: 5))
                 }.padding()
                 
-                
-                List(self.email.getInbox()) { message in
-                    NavigationLink(destination: MessageView(message: self.email.getMessageContent(id: message.id))) {
+                //I just added the optional value for testing purposes.
+                //TODO: Remove and replace with the actual error messages.
+                List(self.email.getInbox() ?? [InboxModel]()) { message in
+                    NavigationLink(destination: MessageView(message: self.email.getMessageContent(id: message.id) ?? MessageModel(id: 1, from: "from@example.com", subject: "sample subject", date: "Today", attachments: nil, body: "somne text", textBody: "some text", htmlBody: "<h1> some text </h1>"))) {
                         InboxRow(messageInfo: message)
                     }
                 }
