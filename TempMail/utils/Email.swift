@@ -37,6 +37,32 @@ class Email : ObservableObject{
         return String((0..<8).map{ _ in letters.randomElement()!})
     }
     
+    //parses JSON data
+    private func parseData(data: Data, type: String) -> (inbox: [InboxModel]?, msg: MessageModel?, attachment: AttachmentModel?) {
+        do {
+            switch type {
+            case "inbox":
+                var response: [InboxModel]?
+                response = try JSONDecoder().decode([InboxModel].self, from: data)
+                return(response,nil, nil)
+            case "msg":
+                var response: MessageModel?
+                response = try JSONDecoder().decode(MessageModel.self, from: data)
+                return(nil,response, nil)
+            case "attachment":
+                var response: AttachmentModel?
+                response = try JSONDecoder().decode(AttachmentModel.self, from: data)
+                return(nil,nil, response)
+            default:
+                print("Model is not valid")
+            }
+        } catch {
+            print("Fetch failed: \(error.localizedDescription)")
+        }
+        //will never reach here
+        return (nil,nil, nil)
+    }
+    
     // loads the Inbox that corresponds to the email address from the server, refreshing every second
     private func loadInbox() -> Void {
         //creates the timer to refresh every 30 seconds and run the code in the block
@@ -51,26 +77,15 @@ class Email : ObservableObject{
                     return
                 }
                 guard let data = data else {return}
-                guard let inbox = self.parseInboxData(data: data) else {return}
+                let info = self.parseData(data: data, type: "inbox")
                 //updates instance variable
                 DispatchQueue.main.async {
                     if self.email_addr == email_addr {
-                        self.inbox = inbox
+                        self.inbox = info.inbox
                     }
                 }
             }.resume()
         }
-    }
-    
-    //parses Inbox JSON data
-    private func parseInboxData(data: Data) -> [InboxModel]? {
-        var response: [InboxModel]?
-        do {
-            response = try JSONDecoder().decode([InboxModel].self, from: data)
-        } catch {
-            print("Fetch failed: \(error.localizedDescription)")
-        }
-        return response
     }
     
     //fetches message data
@@ -86,25 +101,20 @@ class Email : ObservableObject{
                 return
             }
             guard let data = data else {return}
-            guard let msg = self.parseMsgData(data: data) else {return}
-            //checks if the dictionary exists. If not, creates a blank one. I did this because it will not let me update a k,v pair in the dict without having a dict first.
+            let info = self.parseData(data: data, type: "msg")
             //updates instance variable
             DispatchQueue.main.async {
-                self.msgs![id] = msg
+                self.msgs![id] = info.msg
             }
         }.resume()
         return self.msgs![id]
     }
-    
-    private func parseMsgData(data: Data) -> MessageModel? {
-        var response: MessageModel?
-        do {
-            response = try JSONDecoder().decode(MessageModel.self, from: data)
-        } catch {
-            print("Fetch failed: \(error.localizedDescription)")
-        }
-        return response
+
+    //downloads attachments
+    func getAttachments(id: Int, filename: String) -> AttachmentModel? {
+        
     }
+    
     //  getter for email addr
     func getEmailAddr() -> String {
         return email_addr
@@ -117,7 +127,7 @@ class Email : ObservableObject{
     
     // gets the contents of an individual message
     func getMessageContent(id: Int) -> MessageModel? {
-        // Checks to see if a msg dict exists. If not, create a new one so that I can add values to it.
+        // Checks to see if a msg dict exists. If not, create a new empty one so that I can add values to it.
         if self.msgs == nil {
             self.msgs = [:]
         }
