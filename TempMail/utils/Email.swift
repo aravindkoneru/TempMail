@@ -40,6 +40,7 @@ class Email : ObservableObject{
     //parses JSON data
     private func parseData(data: Data, type: String) -> (inbox: [InboxModel]?, msg: MessageModel?, attachment: AttachmentModel?) {
         do {
+            //will execute the code depending on what type of data we are parsing
             switch type {
             case "inbox":
                 var response: [InboxModel]?
@@ -107,12 +108,38 @@ class Email : ObservableObject{
                 self.msgs![id] = info.msg
             }
         }.resume()
+        let attachments = msgs![id]?.attachments
+        
+        if attachments != nil {
+            for element in attachments! {
+                if element.filename.contains(".png") || element.filename.contains(".jpg") {
+                    downloadAttachment(id: id, attachment: element)
+                }
+            }
+        }
         return self.msgs![id]
     }
-
+    
+    //TODO: Fetch attachments
     //downloads attachments
-    func getAttachments(id: Int, filename: String) -> AttachmentModel? {
-        
+    func downloadAttachment(id: Int, attachment: AttachmentModel) {
+        guard let url = URL(string: "https://www.1secmail.com/api/v1/?action=readMessage&login=test&domain=1secmail.com&id=\(id)&file=\(attachment.filename)") else {fatalError("Invalid URL")}
+        //makes the request to server
+        URLSession.shared.downloadTask(with: url) { localURL, URLResponse, error in
+//            if let localURL = localURL {
+//                if let string = try? String(contentsOf: localURL) {
+//
+//                }
+//                print("Error: \(error)")
+//                return
+//            }
+//            guard let data = data else {return}
+//            let info = self.parseData(data: data, type: "msg")
+            //updates instance variable
+//            DispatchQueue.main.async {
+//                self.msgs![id] = info.msg
+//            }
+        }.resume()
     }
     
     //  getter for email addr
