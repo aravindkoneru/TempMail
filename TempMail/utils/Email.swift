@@ -38,18 +38,18 @@ class Email : ObservableObject{
     }
     
     //parses JSON data
-    private func parseData(data: Data, type: String) -> (inbox: [InboxModel]?, msg: MessageModel?, attachment: AttachmentModel?) {
+    private func parseData(data: Data, type: String) -> (inbox: [InboxModel]?, msg: MessageModel?) {
         do {
             //will execute the code depending on what type of data we are parsing
             switch type {
             case "inbox":
                 var response: [InboxModel]?
                 response = try JSONDecoder().decode([InboxModel].self, from: data)
-                return(response,nil, nil)
+                return(response,nil)
             case "msg":
                 var response: MessageModel?
                 response = try JSONDecoder().decode(MessageModel.self, from: data)
-                return(nil,response, nil)
+                return(nil,response)
             default:
                 print("Model is not valid")
             }
@@ -57,7 +57,7 @@ class Email : ObservableObject{
             print("Fetch failed: \(error.localizedDescription)")
         }
         //will never reach here
-        return (nil,nil, nil)
+        return (nil,nil)
     }
     
     // loads the Inbox that corresponds to the email address from the server, refreshing every second
