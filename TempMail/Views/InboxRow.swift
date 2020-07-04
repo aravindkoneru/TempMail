@@ -13,17 +13,17 @@ struct InboxRow: View {
 
     var body: some View {
         VStack(alignment: .leading) {
-            HStack {
-                Text("\(messageInfo.from)")
-                    .font(.headline)
-                Spacer()
-                Text("\(messageInfo.date)")
-                    .font(.subheadline)
-            }
+            Text("\(messageInfo.from)")
+            .font(.headline)
+            .foregroundColor(Color(UIColor.label))
+            .lineLimit(1)
+            .truncationMode(.tail)
             
             Text("\(messageInfo.subject)")
-                .font(.subheadline)            
+                .font(.subheadline)
+                .foregroundColor(Color(UIColor.secondaryLabel))
         }
+    .padding()
     }
 }
 

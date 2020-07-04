@@ -20,6 +20,7 @@ struct ContentView: View {
                 Text("Temp Mail")
                     .font(.largeTitle)
                     .padding()
+                    .foregroundColor(Color(UIColor.label))
                 
                 Button(action: {
                     print("copy to clipboard")
@@ -27,41 +28,55 @@ struct ContentView: View {
                 }) {
                     Text("\(self.email.getEmailAddr())@1secmail.com")
                         .padding()
-                        .foregroundColor(.black)
+                        .foregroundColor(Color(UIColor.label))
                         .font(.title)
                 }
                 
-                Spacer()
-                
                 Button(action: {
                     self.email.reset()
-                    
                 }) {
                     Text("Generate New Email")
                         .fontWeight(.bold)
-                        .foregroundColor(.blue)
+                        .foregroundColor(Color(UIColor.systemBlue))
                         .padding()
                         .overlay(RoundedRectangle(cornerRadius: 40)
-                            .stroke(Color.blue, lineWidth: 5))
+                            .stroke(Color(UIColor.systemBlue), lineWidth: 5))
                 }.padding()
                 
-                //I just added the optional value for testing purposes.
-                //TODO: Remove and replace with the actual error messages.
-                List(self.email.getInbox() ?? [InboxModel]()) { message in
-                    NavigationLink(destination: MessageView(message: self.email.getMessageContent(id: message.id) ?? MessageModel(id: 1, from: "from@example.com", subject: "sample subject", date: "Today", attachments: nil, body: "somne text", textBody: "some text", htmlBody: "<h1> some text </h1>"))) {
-                        InboxRow(messageInfo: message)
-                    }
-                }
-                .navigationBarHidden(true)
-                .navigationBarTitle("", displayMode: .inline)
+                Spacer()
                 
+                if (self.email.getInbox() == nil) {
+                    Text("No Mail")
+                        .foregroundColor(Color(UIColor.secondaryLabel))
+                        .font(.title)
+                        .frame(width: 150, height: 200, alignment: .top)
+                    
+                    Spacer()
+                } else {
+                    List(self.email.getInbox()!) { message in
+                        NavigationLink(destination: MessageView(message: self.email.getMessageContent(id: message.id))) {
+                            InboxRow(messageInfo: message)
+                        }
+                    }
+                    
+                }
             }
+            .navigationBarHidden(true)
+            .navigationBarTitle("Inbox", displayMode: .inline)
         }
+        .statusBar(hidden: false)
+        
     }
 }
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView()
+        Group {
+            ContentView()
+                .environment(\.colorScheme, .dark)
+            ContentView()
+                .environment(\.colorScheme, .light)
+        }
+        
     }
 }
