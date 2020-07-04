@@ -50,10 +50,6 @@ class Email : ObservableObject{
                 var response: MessageModel?
                 response = try JSONDecoder().decode(MessageModel.self, from: data)
                 return(nil,response, nil)
-            case "attachment":
-                var response: AttachmentModel?
-                response = try JSONDecoder().decode(AttachmentModel.self, from: data)
-                return(nil,nil, response)
             default:
                 print("Model is not valid")
             }
@@ -70,7 +66,7 @@ class Email : ObservableObject{
         Timer.scheduledTimer(withTimeInterval: 5, repeats: true) { timer in
             let email_addr = self.email_addr
             //creates the url that will make the API call
-            guard let url = URL(string: "https://www.1secmail.com/api/v1/?action=getMessages&login=test&domain=1secmail.com") else {fatalError("Invalid URL")}
+            guard let url = URL(string: "https://www.1secmail.com/api/v1/?action=getMessages&login=\(self.email_addr)&domain=1secmail.com") else {fatalError("Invalid URL")}
             //makes the request to server
             URLSession.shared.dataTask(with: url) { (data, response, error) in
                 if let error = error {
@@ -94,7 +90,7 @@ class Email : ObservableObject{
         if msgs![id] != nil {
             return self.msgs![id]
         }
-        guard let url = URL(string: "https://www.1secmail.com/api/v1/?action=readMessage&login=test&domain=1secmail.com&id=\(id)") else {fatalError("Invalid URL")}
+        guard let url = URL(string: "https://www.1secmail.com/api/v1/?action=readMessage&login=\(self.email_addr)&domain=1secmail.com&id=\(id)") else {fatalError("Invalid URL")}
         //makes the request to server
         URLSession.shared.dataTask(with: url) { (data, response, error) in
             if let error = error {
@@ -106,39 +102,40 @@ class Email : ObservableObject{
             //updates instance variable
             DispatchQueue.main.async {
                 self.msgs![id] = info.msg
-            }
-        }.resume()
-        let attachments = msgs![id]?.attachments
-        
-        if attachments != nil {
-            for element in attachments! {
-                if element.filename.contains(".png") || element.filename.contains(".jpg") {
-                    downloadAttachment(id: id, attachment: element)
+                //download pics
+                let attachments = self.msgs![id]?.attachments
+                
+                if attachments != nil {
+                    for element in attachments! {
+                        if element.filename.range(of: ".png", options: .caseInsensitive) != nil || element.filename.range(of: ".jpg",options: .caseInsensitive) != nil || element.filename.range(of: ".jpeg",options: .caseInsensitive) != nil {
+                            print("in here")
+                            self.downloadAttachment(id: id, attachment: element)
+                        }
+                    }
                 }
             }
-        }
+        }.resume()
+        
         return self.msgs![id]
     }
     
-    //TODO: Fetch attachments
     //downloads attachments
     func downloadAttachment(id: Int, attachment: AttachmentModel) {
-        guard let url = URL(string: "https://www.1secmail.com/api/v1/?action=readMessage&login=test&domain=1secmail.com&id=\(id)&file=\(attachment.filename)") else {fatalError("Invalid URL")}
+        guard let url = URL(string: "https://www.1secmail.com/api/v1/?action=readMessage&login=\(self.email_addr)&domain=1secmail.com&id=\(id)&file=\(attachment.filename)") else {fatalError("Invalid URL")}
         //makes the request to server
         URLSession.shared.downloadTask(with: url) { localURL, URLResponse, error in
-//            if let localURL = localURL {
-//                if let string = try? String(contentsOf: localURL) {
-//
-//                }
-//                print("Error: \(error)")
-//                return
-//            }
-//            guard let data = data else {return}
-//            let info = self.parseData(data: data, type: "msg")
-            //updates instance variable
-//            DispatchQueue.main.async {
-//                self.msgs![id] = info.msg
-//            }
+            guard let fileURL = localURL else { return }
+            do {
+                let documentsURL = try
+                    FileManager.default.url(for: .documentDirectory,
+                                            in: .userDomainMask,
+                                            appropriateFor: nil,
+                                            create: false)
+                let savedURL = documentsURL.appendingPathComponent(fileURL.lastPathComponent)
+                try FileManager.default.moveItem(at: fileURL, to: savedURL)
+            } catch {
+                print ("file error: \(error)")
+            }
         }.resume()
     }
     
