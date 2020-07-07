@@ -9,7 +9,11 @@
 //This is supposed to be an "Email" Object. The purpose of the email object will be to generate and store the email address, along with the emails attached to it. 
 import SwiftUI
 
-class Email : ObservableObject{
+enum DataType {
+    case inbox, msg
+}
+
+class Email : ObservableObject {
     @Published var email_addr: String
     @Published var inbox: [InboxModel]?
     @Published var msgs: [Int:MessageModel]?
@@ -38,20 +42,18 @@ class Email : ObservableObject{
     }
     
     //parses JSON data
-    private func parseData(data: Data, type: String) -> (inbox: [InboxModel]?, msg: MessageModel?) {
+    private func parseData(data: Data, type: DataType) -> (inbox: [InboxModel]?, msg: MessageModel?) {
         do {
             //will execute the code depending on what type of data we are parsing
             switch type {
-            case "inbox":
+            case DataType.inbox:
                 var response: [InboxModel]?
                 response = try JSONDecoder().decode([InboxModel].self, from: data)
                 return(response,nil)
-            case "msg":
+            case DataType.msg:
                 var response: MessageModel?
                 response = try JSONDecoder().decode(MessageModel.self, from: data)
                 return(nil,response)
-            default:
-                print("Model is not valid")
             }
         } catch {
             print("Fetch failed: \(error.localizedDescription)")
@@ -74,7 +76,7 @@ class Email : ObservableObject{
                     return
                 }
                 guard let data = data else {return}
-                let info = self.parseData(data: data, type: "inbox")
+                let info = self.parseData(data: data, type: DataType.inbox)
                 //updates instance variable
                 DispatchQueue.main.async {
                     if self.email_addr == email_addr {
@@ -98,7 +100,7 @@ class Email : ObservableObject{
                 return
             }
             guard let data = data else {return}
-            let info = self.parseData(data: data, type: "msg")
+            let info = self.parseData(data: data, type: DataType.msg)
             //updates instance variable
             DispatchQueue.main.async {
                 self.msgs![id] = info.msg

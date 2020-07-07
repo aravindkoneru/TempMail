@@ -54,7 +54,7 @@ struct ContentView: View {
                     Spacer()
                 } else {
                     List(self.email.getInbox()!) { message in
-                        NavigationLink(destination: MessageView(message: self.email.getMessageContent(id: message.id))) {
+                        NavigationLink(destination: MessageView(message: self.email.getMessageContent(id: message.id)!)) {
                             InboxRow(messageInfo: message)
                         }
                     }
