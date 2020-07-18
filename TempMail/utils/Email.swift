@@ -68,7 +68,7 @@ class Email : ObservableObject {
         Timer.scheduledTimer(withTimeInterval: 5, repeats: true) { timer in
             let email_addr = self.email_addr
             //creates the url that will make the API call
-            guard let url = URL(string: "https://www.1secmail.com/api/v1/?action=getMessages&login=\(self.email_addr)&domain=1secmail.com") else {fatalError("Invalid URL")}
+            guard let url = URL(string: "https://www.1secmail.com/api/v1/?action=getMessages&login=test&domain=1secmail.com") else {fatalError("Invalid URL")}
             //makes the request to server
             URLSession.shared.dataTask(with: url) { (data, response, error) in
                 if let error = error {
@@ -88,37 +88,45 @@ class Email : ObservableObject {
     }
     
     //fetches message data
-    private func fetchMessage(id: Int) -> MessageModel? {
-        if msgs![id] != nil {
-            return self.msgs![id]
+    func fetchMessage(id: Int, completionHandler: @escaping (MessageModel?) -> ()) {
+        //if this is the first message, create a dict to store them
+        if self.msgs == nil {
+            self.msgs = [:]
         }
-        guard let url = URL(string: "https://www.1secmail.com/api/v1/?action=readMessage&login=\(self.email_addr)&domain=1secmail.com&id=\(id)") else {fatalError("Invalid URL")}
-        //makes the request to server
-        URLSession.shared.dataTask(with: url) { (data, response, error) in
-            if let error = error {
-                print("Error: \(error)")
-                return
-            }
-            guard let data = data else {return}
-            let info = self.parseData(data: data, type: DataType.msg)
-            //updates instance variable
-            DispatchQueue.main.async {
-                self.msgs![id] = info.msg
-                //download pics
-                let attachments = self.msgs![id]?.attachments
-                
-                if attachments != nil {
-                    for element in attachments! {
-                        if element.filename.range(of: ".png", options: .caseInsensitive) != nil || element.filename.range(of: ".jpg",options: .caseInsensitive) != nil || element.filename.range(of: ".jpeg",options: .caseInsensitive) != nil {
-                            print("in here")
-                            self.downloadAttachment(id: id, attachment: element)
+        //if message is already in the dict, return it
+        if msgs![id] != nil {
+            completionHandler(self.msgs![id])
+        }
+        //else fetch message
+        else {
+            guard let url = URL(string: "https://www.1secmail.com/api/v1/?action=readMessage&login=test&domain=1secmail.com&id=\(id)") else {fatalError("Invalid URL")}
+            //makes the request to server
+            let task = URLSession.shared.dataTask(with: url, completionHandler: { (data, response, error) in
+                if let error = error {
+                    print("Error: \(error)")
+                    return
+                }
+                guard let data = data else {return}
+                let info = self.parseData(data: data, type: DataType.msg)
+                //updates instance variable
+                DispatchQueue.main.async {
+                    self.msgs![id] = info.msg
+                    //download pics
+                    let attachments = self.msgs![id]?.attachments
+                    
+                    if attachments != nil {
+                        for element in attachments! {
+                            if element.filename.range(of: ".png", options: .caseInsensitive) != nil || element.filename.range(of: ".jpg",options: .caseInsensitive) != nil || element.filename.range(of: ".jpeg",options: .caseInsensitive) != nil {
+                                print("in here")
+                                self.downloadAttachment(id: id, attachment: element)
+                            }
                         }
                     }
+                    completionHandler(self.msgs![id])
                 }
-            }
-        }.resume()
-        
-        return self.msgs![id]
+            })
+            task.resume()
+        }
     }
     
     //downloads attachments
@@ -153,10 +161,11 @@ class Email : ObservableObject {
     
     // gets the contents of an individual message
     func getMessageContent(id: Int) -> MessageModel? {
-        // Checks to see if a msg dict exists. If not, create a new empty one so that I can add values to it.
-        if self.msgs == nil {
-            self.msgs = [:]
-        }
-        return fetchMessage(id: id)
+        fetchMessage(id: id, completionHandler: {msg in
+                if let msg = msg {
+                    self.msgs![id] = msg
+                }
+        })
+        return self.msgs![id]
     }
 }
