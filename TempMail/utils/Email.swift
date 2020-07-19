@@ -68,7 +68,7 @@ class Email : ObservableObject {
         Timer.scheduledTimer(withTimeInterval: 5, repeats: true) { timer in
             let email_addr = self.email_addr
             //creates the url that will make the API call
-            guard let url = URL(string: "https://www.1secmail.com/api/v1/?action=getMessages&login=test&domain=1secmail.com") else {fatalError("Invalid URL")}
+            guard let url = URL(string: "https://www.1secmail.com/api/v1/?action=getMessages&login=\(self.email_addr)&domain=1secmail.com") else {fatalError("Invalid URL")}
             //makes the request to server
             URLSession.shared.dataTask(with: url) { (data, response, error) in
                 if let error = error {
@@ -99,7 +99,7 @@ class Email : ObservableObject {
         }
         //else fetch message
         else {
-            guard let url = URL(string: "https://www.1secmail.com/api/v1/?action=readMessage&login=test&domain=1secmail.com&id=\(id)") else {fatalError("Invalid URL")}
+            guard let url = URL(string: "https://www.1secmail.com/api/v1/?action=readMessage&login=\(self.email_addr)&domain=1secmail.com&id=\(id)") else {fatalError("Invalid URL")}
             //makes the request to server
             let task = URLSession.shared.dataTask(with: url, completionHandler: { (data, response, error) in
                 if let error = error {
