@@ -54,7 +54,8 @@ struct ContentView: View {
                     Spacer()
                 } else {
                     List(self.email.getInbox()!) { message in
-                        NavigationLink(destination: MessageView(message: self.email.getMessageContent(id: message.id))) {
+                        //TODO: replace the default MessageModel with a "Message loading" type message
+                        NavigationLink(destination: MessageView(message: self.email.getMessageContent(id: message.id) ?? MessageModel(id: 3, from: "tester", subject: "sample", date: "sample date", attachments: nil, body: "sample", textBody: "sample", htmlBody: "sample"))) {
                             InboxRow(messageInfo: message)
                         }
                     }

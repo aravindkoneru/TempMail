@@ -9,9 +9,14 @@
 //This is supposed to be an "Email" Object. The purpose of the email object will be to generate and store the email address, along with the emails attached to it. 
 import SwiftUI
 
-class Email : ObservableObject{
+enum DataType {
+    case inbox, msg
+}
+
+class Email : ObservableObject {
     @Published var email_addr: String
     @Published var inbox: [InboxModel]?
+    @Published var msgs: [Int:MessageModel]?
     
     //  init method
     init() {
@@ -23,6 +28,7 @@ class Email : ObservableObject{
     
     //resets the email
     func reset() -> Void {
+        self.msgs = nil
         self.inbox = nil
         self.email_addr = genNewEmailAddr()
     }
@@ -35,10 +41,31 @@ class Email : ObservableObject{
         return String((0..<8).map{ _ in letters.randomElement()!})
     }
     
+    //parses JSON data
+    private func parseData(data: Data, type: DataType) -> (inbox: [InboxModel]?, msg: MessageModel?) {
+        do {
+            //will execute the code depending on what type of data we are parsing
+            switch type {
+            case DataType.inbox:
+                var response: [InboxModel]?
+                response = try JSONDecoder().decode([InboxModel].self, from: data)
+                return(response,nil)
+            case DataType.msg:
+                var response: MessageModel?
+                response = try JSONDecoder().decode(MessageModel.self, from: data)
+                return(nil,response)
+            }
+        } catch {
+            print("Fetch failed: \(error.localizedDescription)")
+        }
+        //will never reach here
+        return (nil,nil)
+    }
+    
     // loads the Inbox that corresponds to the email address from the server, refreshing every second
     private func loadInbox() -> Void {
-        //creates the timer to refresh every 30 seconds and run the code in the block
-        Timer.scheduledTimer(withTimeInterval: 30, repeats: true) { timer in
+        //creates the timer to refresh every 5 seconds and run the code in the block
+        Timer.scheduledTimer(withTimeInterval: 5, repeats: true) { timer in
             let email_addr = self.email_addr
             //creates the url that will make the API call
             guard let url = URL(string: "https://www.1secmail.com/api/v1/?action=getMessages&login=\(self.email_addr)&domain=1secmail.com") else {fatalError("Invalid URL")}
@@ -49,26 +76,77 @@ class Email : ObservableObject{
                     return
                 }
                 guard let data = data else {return}
-                guard let inbox = self.parseInboxData(data: data) else {return}
+                let info = self.parseData(data: data, type: DataType.inbox)
                 //updates instance variable
                 DispatchQueue.main.async {
                     if self.email_addr == email_addr {
-                        self.inbox = inbox
+                        self.inbox = info.inbox
                     }
                 }
             }.resume()
         }
     }
     
-    //parses Inbox JSON data
-    private func parseInboxData(data: Data) -> [InboxModel]? {
-        var response: [InboxModel]?
-        do {
-            response = try JSONDecoder().decode([InboxModel].self, from: data)
-        } catch {
-            print("Fetch failed: \(error.localizedDescription)")
+    //fetches message data
+    func fetchMessage(id: Int, completionHandler: @escaping (MessageModel?) -> ()) {
+        //if this is the first message, create a dict to store them
+        if self.msgs == nil {
+            self.msgs = [:]
         }
-        return response
+        //if message is already in the dict, return it
+        if msgs![id] != nil {
+            completionHandler(self.msgs![id])
+        }
+        //else fetch message
+        else {
+            guard let url = URL(string: "https://www.1secmail.com/api/v1/?action=readMessage&login=\(self.email_addr)&domain=1secmail.com&id=\(id)") else {fatalError("Invalid URL")}
+            //makes the request to server
+            let task = URLSession.shared.dataTask(with: url, completionHandler: { (data, response, error) in
+                if let error = error {
+                    print("Error: \(error)")
+                    return
+                }
+                guard let data = data else {return}
+                let info = self.parseData(data: data, type: DataType.msg)
+                //updates instance variable
+                DispatchQueue.main.async {
+                    self.msgs![id] = info.msg
+                    //download pics
+                    let attachments = self.msgs![id]?.attachments
+                    
+                    if attachments != nil {
+                        for element in attachments! {
+                            if element.filename.range(of: ".png", options: .caseInsensitive) != nil || element.filename.range(of: ".jpg",options: .caseInsensitive) != nil || element.filename.range(of: ".jpeg",options: .caseInsensitive) != nil {
+                                print("in here")
+                                self.downloadAttachment(id: id, attachment: element)
+                            }
+                        }
+                    }
+                    completionHandler(self.msgs![id])
+                }
+            })
+            task.resume()
+        }
+    }
+    
+    //downloads attachments
+    func downloadAttachment(id: Int, attachment: AttachmentModel) {
+        guard let url = URL(string: "https://www.1secmail.com/api/v1/?action=readMessage&login=\(self.email_addr)&domain=1secmail.com&id=\(id)&file=\(attachment.filename)") else {fatalError("Invalid URL")}
+        //makes the request to server
+        URLSession.shared.downloadTask(with: url) { localURL, URLResponse, error in
+            guard let fileURL = localURL else { return }
+            do {
+                let documentsURL = try
+                    FileManager.default.url(for: .documentDirectory,
+                                            in: .userDomainMask,
+                                            appropriateFor: nil,
+                                            create: false)
+                let savedURL = documentsURL.appendingPathComponent(fileURL.lastPathComponent)
+                try FileManager.default.moveItem(at: fileURL, to: savedURL)
+            } catch {
+                print ("file error: \(error)")
+            }
+        }.resume()
     }
     
     //  getter for email addr
@@ -81,10 +159,13 @@ class Email : ObservableObject{
         return inbox
     }
     
-    
-    // @TODO: implement real functionality
     // gets the contents of an individual message
-    func getMessageContent(id: Int) -> MessageModel {
-        return MessageModel(id: 1, from: "from@example.com", subject: "sample subject", date: "Today", attachments: nil, body: "somne text", textBody: "some text", htmlBody: "<h1> some text </h1>")
+    func getMessageContent(id: Int) -> MessageModel? {
+        fetchMessage(id: id, completionHandler: {msg in
+                if let msg = msg {
+                    self.msgs![id] = msg
+                }
+        })
+        return self.msgs![id]
     }
 }
